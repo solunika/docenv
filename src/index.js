@@ -6,19 +6,22 @@ function getConfig(name, defValue, help, regex) {
 
     if (!value && defValue !== undefined) {
         console.warn(`The environment variable: [${name}] is not defined in .env, default value is: ${defValue}`);
-        return defValue;
-    } else if (!value) {
-        console.error(`The envronment variable: [${name}] must be defined in .env!`);
-        if (help) {
-            console.log(`Help for [${name}]\n\t * ${help}`);
-        }
-        error = true;
-    } else {
-        if (!!regex && !regex.test(value)) {
-            console.error(`The envronment variable: [${name}] does not match with regular expression ${regex} `);
-            error = true
-        } else return value;
+        value = defValue;
     }
+    if (value) {
+        if (!!regex && !regex.test(value)) {
+            console.error(`The envronment variable: [${name}] does not match with regular expression
+            Value: ${value}
+            Regex: ${regex}`);
+            error = true
+        }
+    } else {
+        console.error(`The envronment variable: [${name}] must be defined in .env!`);
+        if (help) console.log(`Help for [${name}]\n\t * ${help}`);
+        error = true;
+    }
+
+    return value;
 }
 
 function loadConfig(varDoc) {
