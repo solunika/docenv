@@ -32,7 +32,7 @@ SERVER_PORT=7337
 #### 2- Create a `docenv-config.js` with defaults parameters and text explaining usage.
 
 ```javascript
-module.export = [
+module.exports = [
 	{
 		"key": "SERVER_IP",
 		"help": "IP to listen on the server",
@@ -55,6 +55,11 @@ const { Config, initEnv} = require("docenv")
 initEnv(require("./docenv-config.js"));
 ```
 If some of your variables doesn't have default value and you .env doesn't define the value throw next error: 
+```shell
+The envronment variable: [VARIABLE_NAME] must be defined in .env!
+Help for [ VARIABLE_NAME]
+        * Variable Help
+```
 
 #### 4- Use it
 ```javascript
