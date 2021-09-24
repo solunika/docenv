@@ -43,7 +43,7 @@ SERVER_PORT=7337
 
 #### 2- Create a `docenv-config.json` at your projects roots location, with defaults parameters and text explaining usage.
 
-```json
+```javascript
 [
 	{
 		"key": "SERVER_IP",
