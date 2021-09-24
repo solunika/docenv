@@ -23,8 +23,8 @@ function getConfig(name, defValue, help, regex) {
 
 function loadConfig(varDoc) {
     if (config[varDoc.key] !== undefined) {
-        console.error("Duplicated variable definition ", name, " in .env.");
-        throw new Error("Duplicated variable definition " + name + " in .env.");
+        console.error(`Duplicated variable definition ${varDoc.key} in .env.`);
+        throw new Error(`Duplicated variable definition ${varDoc.key} in .env.`);
     }
     config[varDoc.key] = getConfig(varDoc.key, varDoc.value, varDoc.help, varDoc.regex);
 }
