@@ -6,15 +6,29 @@
 Simple wrapper for dotenv that let us describe (document) configuration parameters and define default values for them if not defined.
 
 `docenv-config.json`
-```
+```javascript
 [
 	{
 		"key": "VARIABLE_NAME",
-		"value": "defaultValue", // If doesn't have value should be defined in .env file.
-		"help": "Variable value description"
+		"value": "defaultValue", // Optional
+		"help": "Variable description",
+		"regex": /^(80|7337)$/ // Optional
 	},
 	...
 ]
+```
+## Installation
+
+Using npm:
+
+```shell
+npm install docenv
+```
+
+or using yarn:
+
+```shell
+yarn add docenv
 ```
 
 ## How to use
@@ -23,13 +37,13 @@ Simple wrapper for dotenv that let us describe (document) configuration paramete
 
 Sample .env content:
 
-```
+```shell
 SERVER_PORT=7337
 ```
 
 #### 2- Create a `docenv-config.json` at your projects roots location, with defaults parameters and text explaining usage.
 
-```
+```json
 [
 	{
 		"key": "SERVER_IP",
@@ -47,13 +61,13 @@ SERVER_PORT=7337
 
 #### 3- Initialize doc-env at your entry code.
 Sample index.js content:
-```
+```javascript
 const { Config, initEnv} = require("docenv")
 
 initEnv();
 ```
 
 4- Use it
-```
+```javascript
 httpServer.listen(Config.SERVER_PORT, Config.SERVER_IP, resolve);
 ```
