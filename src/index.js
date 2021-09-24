@@ -5,7 +5,7 @@ let doc = require(__dirname + '/../../../docenv-config.json');
 if (doc === undefined) doc = [];
 let pe = process.env;
 
-function getConfig(name, defValue, help) {
+function getConfig(name, defValue, help, regex) {
 
     let value = pe[name];
 
@@ -19,7 +19,10 @@ function getConfig(name, defValue, help) {
         }
         error = true;
     } else {
-        return value;
+        if (!!regex && !regex.test(value)) {
+            console.error(`The envronment variable:[${name}] does not match with regular expression ${regex}`);
+            error = true
+        } else return value;
     }
 }
 
@@ -28,7 +31,7 @@ function loadConfig(varDoc) {
         console.error("Duplicated variable definition ", name, " in .env.");
         throw new Error("Duplicated variable definition " + name + " in .env.");
     }
-    config[varDoc.key] = getConfig(varDoc.key, varDoc.value, varDoc.help);
+    config[varDoc.key] = getConfig(varDoc.key, varDoc.value, varDoc.help, varDoc.regex);
 }
 
 module.exports.default = function () {
