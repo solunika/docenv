@@ -28,12 +28,10 @@ function loadConfig(varDoc) {
     }
     config[varDoc.key] = getConfig(varDoc.key, varDoc.value, varDoc.help, varDoc.regex);
 }
-function initEnv(config) {
-    require('dotenv').config(config);
-    let doc = require(__dirname + '/../../../docenv-config.json');
-    if (doc === undefined) doc = [];
-
-    doc.forEach(loadConfig)
+function initEnv(config = [], dotenvOpts) {
+    require('dotenv').config(dotenvOpts);
+    
+    config.forEach(loadConfig)
     if (error) process.exit(1);
 }
 
