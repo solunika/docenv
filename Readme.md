@@ -55,7 +55,7 @@ const { Config, initEnv} = require("docenv")
 initEnv(require("./docenv-config.js"));
 ```
 If some of your variables doesn't have default value and you .env doesn't define the value throw next error: 
-```shell
+```
 The envronment variable: [VARIABLE_NAME] must be defined in .env!
 Help for [ VARIABLE_NAME]
         * Variable Help
