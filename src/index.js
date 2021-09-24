@@ -1,9 +1,4 @@
-let config = {}, error = false;
-
-require('dotenv').config();
-let doc = require(__dirname + '/../../../docenv-config.json');
-if (doc === undefined) doc = [];
-let pe = process.env;
+let config = {}, error = false, pe = process.env;
 
 function getConfig(name, defValue, help, regex) {
 
@@ -33,10 +28,15 @@ function loadConfig(varDoc) {
     }
     config[varDoc.key] = getConfig(varDoc.key, varDoc.value, varDoc.help, varDoc.regex);
 }
+function initEnv(config) {
+    require('dotenv').config(config);
+    let doc = require(__dirname + '/../../../docenv-config.json');
+    if (doc === undefined) doc = [];
 
-module.exports.default = function () {
     doc.forEach(loadConfig)
     if (error) process.exit(1);
 }
 
+module.exports.default = initEnv;
+module.exports.loadEnv = initEnv;
 module.exports.Config = config;
